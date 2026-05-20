@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATOR PENUGASAN</title>
+</head>
+<body>
+    <script>
+        // Operator Penugasan
+        let a = 10;
+        console.log("Nilai awal a: " + a); // Output: 10
+
+        a += 5; // Sama dengan a = a + 5
+        console.log("Setelah penjumlahan (a += 5): " + a); // Output: 15
+
+        a -= 3; // Sama dengan a = a - 3
+        console.log("Setelah pengurangan (a -= 3): " + a); // Output: 12
+
+        a *= 2; // Sama dengan a = a * 2
+        console.log("Setelah perkalian (a *= 2): " + a); // Output: 24
+
+        a /= 4; // Sama dengan a = a / 4
+        console.log("Setelah pembagian (a /= 4): " + a); // Output: 6
+
+        a %= 5; // Sama dengan a = a % 5
+        console.log("Setelah sisa bagi (a %= 5): " + a); // Output: 1
+
+        a **= 3; // Sama dengan a = a ** 3
+        console.log("Setelah pangkat (a **= 3): " + a); // Output: 1
+
+        a++; // Sama dengan a = a + 1
+        console.log("Setelah increment (a++): " + a); // Output: 2
+        a--; // Sama dengan a = a - 1
+        console.log("Setelah decrement (a--): " + a); // Output:
+
+
+
+
+        // ============================================================
+        // STUDI KASUS 2 — SISTEM POIN GAME (Operator Penugasan)
+        // ============================================================
+
+        function simulasiPoinGame(namaPlayer) {
+        console.log("===== SISTEM POIN GAME =====");
+        console.log(`Player: ${namaPlayer}`);
+        console.log("----------------------------");
+
+        // Operator = (assign) — inisialisasi poin
+        let poin = 0;
+        console.log(`poin = 0  →  poin: ${poin}`);
+
+        // Operator += (tambah-assign) — dapat item
+        poin += 100;
+        console.log(`poin += 100  (dapat item)  →  poin: ${poin}`);
+
+        // Operator += (tambah-assign) — menang ronde
+        poin += 250;
+        console.log(`poin += 250  (menang ronde)  →  poin: ${poin}`);
+
+        // Operator -= (kurang-assign) — kena penalti
+        poin -= 50;
+        console.log(`poin -= 50   (kena penalti)  →  poin: ${poin}`);
+
+        // Operator *= (kali-assign) — bonus double
+        poin *= 2;
+        console.log(`poin *= 2    (bonus double)  →  poin: ${poin}`);
+
+        // Operator %= (mod-assign) — simulasi: poin setelah dikurangi threshold tertentu
+        let threshold = 100;
+        let sisaPoin = poin;
+        sisaPoin %= threshold;
+        console.log(`sisaPoin %= ${threshold}  (sisa setelah threshold)  →  sisaPoin: ${sisaPoin}`);
+
+        // Operator **= (pangkat-assign) — simulasi: level power (poin dinaikkan pangkat level)
+        let power = 2;
+        power **= 3; // 2^3
+        console.log(`power **= 3  (level power 2^3)  →  power: ${power}`);
+
+        // Simulasi bagi bulat — konversi poin ke koin (tiap 10 poin = 1 koin)
+        const koin = Math.floor(poin / 10);
+        console.log(`koin = Math.floor(poin / 10) = Math.floor(${poin} / 10) = ${koin} koin`);
+
+        // Operator /= (bagi-assign)
+        let totalPoin = poin;
+        totalPoin /= 4; // dibagi 4 member tim
+        console.log(`totalPoin /= 4  (bagi ke tim)  →  totalPoin per member: ${totalPoin}`);
+
+        console.log("============================\n");
+
+        return { poinAkhir: poin, koin };
+        }
+
+        // Contoh pemanggilan
+        simulasiPoinGame("Budi");
+    </script>   
+</body>
+</html>

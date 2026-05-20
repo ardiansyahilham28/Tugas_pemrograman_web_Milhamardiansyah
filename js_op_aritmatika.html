@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATOR ARITMATIKA</title>
+</head>
+<body>
+    <script>
+        // Operator Aritmatika
+        let a = 10;
+        let b = 5;
+        console.log("Penjumlahan: " + (a + b)); // Output: 15
+        console.log("Pengurangan: " + (a - b)); // Output: 5
+        console.log("Perkalian: " + (a * b)); // Output: 50
+        console.log("Pembagian: " + (a / b)); // Output: 2
+        console.log("Sisa Bagi: " + (a % b)); // Output: 0
+        console.log("Pangkat: " + (a ** b)); // Output: 100000
+
+        // ============================================================
+        // STUDI KASUS 1 — KASIR TOKO (Operator Aritmatika)
+        // ============================================================
+
+        function hitungKasirToko(hargaSatuan, jumlahBeli, diskon, uangBayar) {
+        console.log("===== KASIR TOKO =====");
+        console.log(`Harga satuan  : Rp ${hargaSatuan.toLocaleString("id-ID")}`);
+        console.log(`Jumlah beli   : ${jumlahBeli} item`);
+        console.log(`Diskon        : Rp ${diskon.toLocaleString("id-ID")}`);
+        console.log(`Uang bayar    : Rp ${uangBayar.toLocaleString("id-ID")}`);
+        console.log("----------------------");
+
+        // Operator * (perkalian) — hitung subtotal
+        const subtotal = hargaSatuan * jumlahBeli;
+        console.log(`subtotal = hargaSatuan * jumlahBeli`);
+        console.log(`         = ${hargaSatuan} * ${jumlahBeli} = Rp ${subtotal.toLocaleString("id-ID")}`);
+
+        // Operator - (pengurangan) — potong diskon
+        const total = subtotal - diskon;
+        console.log(`total    = subtotal - diskon`);
+        console.log(`         = ${subtotal} - ${diskon} = Rp ${total.toLocaleString("id-ID")}`);
+
+        // Operator / (pembagian) — bagi per orang (2 orang)
+        const perOrang = total / 2;
+        console.log(`perOrang = total / 2`);
+        console.log(`         = ${total} / 2 = Rp ${perOrang.toLocaleString("id-ID")}`);
+
+        // Operator % (modulus) — sisa kembalian
+        const kembalian = uangBayar - total;
+        const sisaModulus = uangBayar % total;
+        console.log(`kembalian   = uangBayar - total = Rp ${kembalian.toLocaleString("id-ID")}`);
+        console.log(`sisa (%)    = uangBayar % total = Rp ${sisaModulus.toLocaleString("id-ID")}`);
+
+        // Operator ** (pangkat) — simulasi: harga setelah kenaikan 10% selama 2 tahun
+        const kenaikanPersen = 1.1; // 10%
+        const tahun = 2;
+        const hargaMendatang = hargaSatuan * (kenaikanPersen ** tahun);
+        console.log(`harga 2 thn lagi = hargaSatuan * (1.1 ** 2)`);
+        console.log(`                 = ${hargaSatuan} * ${kenaikanPersen ** tahun} = Rp ${hargaMendatang.toFixed(0)}`);
+
+        // Operator // simulasi dengan Math.floor (bagi bulat)
+        const itemDapatDibeli = Math.floor(uangBayar / hargaSatuan);
+        console.log(`maks item dibeli = Math.floor(uangBayar / hargaSatuan)`);
+        console.log(`                 = Math.floor(${uangBayar} / ${hargaSatuan}) = ${itemDapatDibeli} item`);
+
+        console.log("======================\n");
+
+        return { subtotal, total, perOrang, kembalian };
+        }
+
+        // Contoh pemanggilan
+        hitungKasirToko(15000, 4, 5000, 100000);
+    </script>
+</body>
+</html>

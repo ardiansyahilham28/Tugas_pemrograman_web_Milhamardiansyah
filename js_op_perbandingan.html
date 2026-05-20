@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATOR PERBANDINGAN</title>
+</head>
+<body>
+    <script>
+        // Operator Perbandingan
+        let a = 10;
+        let b = 5;
+        console.log("Apakah a sama dengan b? " + (a == b)); // Output: false
+        console.log("Apakah a tidak sama dengan b? " + (a != b)); // Output: true
+        console.log("Apakah a lebih besar dari b? " + (a > b)); // Output: true
+        console.log("Apakah a lebih kecil dari b? " + (a < b)); // Output: false
+        console.log("Apakah a lebih besar atau sama dengan b? " + (a >= b)); // Output: true
+        console.log("Apakah a lebih kecil atau sama dengan b? " + (a <= b)); // Output: false
+
+        // ============================================================
+        // STUDI KASUS 3 — KELULUSAN SISWA (Operator Pembanding)
+        // ============================================================
+
+        function cekKelulusan(namaSiswa, nilai, kks = 75, nilaiBeasiswa = 90) {
+        console.log("===== KELULUSAN SISWA =====");
+        console.log(`Nama siswa : ${namaSiswa}`);
+        console.log(`Nilai      : ${nilai}`);
+        console.log(`KKS        : ${kks}`);
+        console.log("---------------------------");
+
+        // Operator >= — cek lulus
+        const lulus = nilai >= kks;
+        console.log(`lulus           = nilai >= kks`);
+        console.log(`                = ${nilai} >= ${kks}  →  ${lulus}`);
+
+        // Operator >= — cek beasiswa
+        const dapatBeasiswa = nilai >= nilaiBeasiswa;
+        console.log(`dapatBeasiswa   = nilai >= nilaiBeasiswa`);
+        console.log(`                = ${nilai} >= ${nilaiBeasiswa}  →  ${dapatBeasiswa}`);
+
+        // Operator < — cek remedial
+        const remedial = nilai < kks;
+        console.log(`remedial        = nilai < kks`);
+        console.log(`                = ${nilai} < ${kks}  →  ${remedial}`);
+
+        // Operator == — cek persis sama dengan KKS
+        const tepatKks = nilai == kks;
+        console.log(`tepatKks        = nilai == kks`);
+        console.log(`                = ${nilai} == ${kks}  →  ${tepatKks}`);
+
+        // Operator === — strict equality (nilai dan tipe harus sama)
+        const strictSama = nilai === kks;
+        console.log(`strictSama      = nilai === kks  →  ${strictSama}`);
+
+        // Operator != — cek tidak absen (nilai bukan 0)
+        const tidakAbsen = nilai != 0;
+        console.log(`tidakAbsen      = nilai != 0`);
+        console.log(`                = ${nilai} != 0  →  ${tidakAbsen}`);
+
+        // Operator !== — strict not equal
+        const strictBeda = nilai !== kks;
+        console.log(`strictBeda      = nilai !== kks  →  ${strictBeda}`);
+
+        // Operator > — nilai di atas rata-rata kelas (asumsi rata-rata 70)
+        const rataKelas = 70;
+        const diAtasRata = nilai > rataKelas;
+        console.log(`diAtasRata      = nilai > ${rataKelas}  →  ${diAtasRata}`);
+
+        // Operator <= — cek nilai rendah (perlu bimbingan)
+        const perluBimbingan = nilai <= 60;
+        console.log(`perluBimbingan  = nilai <= 60  →  ${perluBimbingan}`);
+
+        // Gunakan hasil perbandingan dalam logika program
+        console.log("---------------------------");
+        console.log("HASIL AKHIR:");
+        if (lulus) {
+            console.log(`  ${namaSiswa} => LULUS`);
+        } else {
+            console.log(`  ${namaSiswa} => TIDAK LULUS — wajib remedial`);
+        }
+
+        if (dapatBeasiswa) {
+            console.log(`  ${namaSiswa} => Berhak mendapat BEASISWA`);
+        }
+
+        if (diAtasRata) {
+            console.log(`  ${namaSiswa} => Nilai di atas rata-rata kelas`);
+        }
+
+        if (perluBimbingan) {
+            console.log(`  ${namaSiswa} => Disarankan ikut program bimbingan`);
+        }
+
+        console.log("===========================\n");
+
+        return { lulus, dapatBeasiswa, remedial, tepatKks, tidakAbsen };
+        }
+
+        // Contoh pemanggilan — berbagai skenario
+        cekKelulusan("ANI", 78);       // lulus, tidak dapat beasiswa
+ 
+    </script>
+</body>
+</html>

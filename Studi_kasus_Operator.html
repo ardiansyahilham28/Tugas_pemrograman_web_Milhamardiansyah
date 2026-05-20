@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //  STUDI KASUS OPERATOR JAVASCRIPT
+        //  1. Kasir Toko   → Operator Aritmatika
+        //  2. Sistem Poin Game → Operator Penugasan
+        //  3. Kelulusan Siswa  → Operator Pembanding
+        // ============================================================
+
+
+        // ============================================================
+        // STUDI KASUS 1 — KASIR TOKO (Operator Aritmatika)
+        // ============================================================
+
+        function hitungKasirToko(hargaSatuan, jumlahBeli, diskon, uangBayar) {
+        console.log("===== KASIR TOKO =====");
+        console.log(`Harga satuan  : Rp ${hargaSatuan.toLocaleString("id-ID")}`);
+        console.log(`Jumlah beli   : ${jumlahBeli} item`);
+        console.log(`Diskon        : Rp ${diskon.toLocaleString("id-ID")}`);
+        console.log(`Uang bayar    : Rp ${uangBayar.toLocaleString("id-ID")}`);
+        console.log("----------------------");
+
+        // Operator * (perkalian) — hitung subtotal
+        const subtotal = hargaSatuan * jumlahBeli;
+        console.log(`subtotal = hargaSatuan * jumlahBeli`);
+        console.log(`         = ${hargaSatuan} * ${jumlahBeli} = Rp ${subtotal.toLocaleString("id-ID")}`);
+
+        // Operator - (pengurangan) — potong diskon
+        const total = subtotal - diskon;
+        console.log(`total    = subtotal - diskon`);
+        console.log(`         = ${subtotal} - ${diskon} = Rp ${total.toLocaleString("id-ID")}`);
+
+        // Operator / (pembagian) — bagi per orang (2 orang)
+        const perOrang = total / 2;
+        console.log(`perOrang = total / 2`);
+        console.log(`         = ${total} / 2 = Rp ${perOrang.toLocaleString("id-ID")}`);
+
+        // Operator % (modulus) — sisa kembalian
+        const kembalian = uangBayar - total;
+        const sisaModulus = uangBayar % total;
+        console.log(`kembalian   = uangBayar - total = Rp ${kembalian.toLocaleString("id-ID")}`);
+        console.log(`sisa (%)    = uangBayar % total = Rp ${sisaModulus.toLocaleString("id-ID")}`);
+
+        // Operator ** (pangkat) — simulasi: harga setelah kenaikan 10% selama 2 tahun
+        const kenaikanPersen = 1.1; // 10%
+        const tahun = 2;
+        const hargaMendatang = hargaSatuan * (kenaikanPersen ** tahun);
+        console.log(`harga 2 thn lagi = hargaSatuan * (1.1 ** 2)`);
+        console.log(`                 = ${hargaSatuan} * ${kenaikanPersen ** tahun} = Rp ${hargaMendatang.toFixed(0)}`);
+
+        // Operator // simulasi dengan Math.floor (bagi bulat)
+        const itemDapatDibeli = Math.floor(uangBayar / hargaSatuan);
+        console.log(`maks item dibeli = Math.floor(uangBayar / hargaSatuan)`);
+        console.log(`                 = Math.floor(${uangBayar} / ${hargaSatuan}) = ${itemDapatDibeli} item`);
+
+        console.log("======================\n");
+
+        return { subtotal, total, perOrang, kembalian };
+        }
+
+        // Contoh pemanggilan
+        hitungKasirToko(15000, 4, 5000, 100000);
+
+
+        // ============================================================
+        // STUDI KASUS 2 — SISTEM POIN GAME (Operator Penugasan)
+        // ============================================================
+
+        function simulasiPoinGame(namaPlayer) {
+        console.log("===== SISTEM POIN GAME =====");
+        console.log(`Player: ${namaPlayer}`);
+        console.log("----------------------------");
+
+        // Operator = (assign) — inisialisasi poin
+        let poin = 0;
+        console.log(`poin = 0  →  poin: ${poin}`);
+
+        // Operator += (tambah-assign) — dapat item
+        poin += 100;
+        console.log(`poin += 100  (dapat item)  →  poin: ${poin}`);
+
+        // Operator += (tambah-assign) — menang ronde
+        poin += 250;
+        console.log(`poin += 250  (menang ronde)  →  poin: ${poin}`);
+
+        // Operator -= (kurang-assign) — kena penalti
+        poin -= 50;
+        console.log(`poin -= 50   (kena penalti)  →  poin: ${poin}`);
+
+        // Operator *= (kali-assign) — bonus double
+        poin *= 2;
+        console.log(`poin *= 2    (bonus double)  →  poin: ${poin}`);
+
+        // Operator %= (mod-assign) — simulasi: poin setelah dikurangi threshold tertentu
+        let threshold = 100;
+        let sisaPoin = poin;
+        sisaPoin %= threshold;
+        console.log(`sisaPoin %= ${threshold}  (sisa setelah threshold)  →  sisaPoin: ${sisaPoin}`);
+
+        // Operator **= (pangkat-assign) — simulasi: level power (poin dinaikkan pangkat level)
+        let power = 2;
+        power **= 3; // 2^3
+        console.log(`power **= 3  (level power 2^3)  →  power: ${power}`);
+
+        // Simulasi bagi bulat — konversi poin ke koin (tiap 10 poin = 1 koin)
+        const koin = Math.floor(poin / 10);
+        console.log(`koin = Math.floor(poin / 10) = Math.floor(${poin} / 10) = ${koin} koin`);
+
+        // Operator /= (bagi-assign)
+        let totalPoin = poin;
+        totalPoin /= 4; // dibagi 4 member tim
+        console.log(`totalPoin /= 4  (bagi ke tim)  →  totalPoin per member: ${totalPoin}`);
+
+        console.log("============================\n");
+
+        return { poinAkhir: poin, koin };
+        }
+
+        // Contoh pemanggilan
+        simulasiPoinGame("Budi");
+
+
+        // ============================================================
+        // STUDI KASUS 3 — KELULUSAN SISWA (Operator Pembanding)
+        // ============================================================
+
+        function cekKelulusan(namaSiswa, nilai, kks = 75, nilaiBeasiswa = 90) {
+        console.log("===== KELULUSAN SISWA =====");
+        console.log(`Nama siswa : ${namaSiswa}`);
+        console.log(`Nilai      : ${nilai}`);
+        console.log(`KKS        : ${kks}`);
+        console.log("---------------------------");
+
+        // Operator >= — cek lulus
+        const lulus = nilai >= kks;
+        console.log(`lulus           = nilai >= kks`);
+        console.log(`                = ${nilai} >= ${kks}  →  ${lulus}`);
+
+        // Operator >= — cek beasiswa
+        const dapatBeasiswa = nilai >= nilaiBeasiswa;
+        console.log(`dapatBeasiswa   = nilai >= nilaiBeasiswa`);
+        console.log(`                = ${nilai} >= ${nilaiBeasiswa}  →  ${dapatBeasiswa}`);
+
+        // Operator < — cek remedial
+        const remedial = nilai < kks;
+        console.log(`remedial        = nilai < kks`);
+        console.log(`                = ${nilai} < ${kks}  →  ${remedial}`);
+
+        // Operator == — cek persis sama dengan KKS
+        const tepatKks = nilai == kks;
+        console.log(`tepatKks        = nilai == kks`);
+        console.log(`                = ${nilai} == ${kks}  →  ${tepatKks}`);
+
+        // Operator === — strict equality (nilai dan tipe harus sama)
+        const strictSama = nilai === kks;
+        console.log(`strictSama      = nilai === kks  →  ${strictSama}`);
+
+        // Operator != — cek tidak absen (nilai bukan 0)
+        const tidakAbsen = nilai != 0;
+        console.log(`tidakAbsen      = nilai != 0`);
+        console.log(`                = ${nilai} != 0  →  ${tidakAbsen}`);
+
+        // Operator !== — strict not equal
+        const strictBeda = nilai !== kks;
+        console.log(`strictBeda      = nilai !== kks  →  ${strictBeda}`);
+
+        // Operator > — nilai di atas rata-rata kelas (asumsi rata-rata 70)
+        const rataKelas = 70;
+        const diAtasRata = nilai > rataKelas;
+        console.log(`diAtasRata      = nilai > ${rataKelas}  →  ${diAtasRata}`);
+
+        // Operator <= — cek nilai rendah (perlu bimbingan)
+        const perluBimbingan = nilai <= 60;
+        console.log(`perluBimbingan  = nilai <= 60  →  ${perluBimbingan}`);
+
+        // Gunakan hasil perbandingan dalam logika program
+        console.log("---------------------------");
+        console.log("HASIL AKHIR:");
+        if (lulus) {
+            console.log(`  ${namaSiswa} => LULUS`);
+        } else {
+            console.log(`  ${namaSiswa} => TIDAK LULUS — wajib remedial`);
+        }
+
+        if (dapatBeasiswa) {
+            console.log(`  ${namaSiswa} => Berhak mendapat BEASISWA`);
+        }
+
+        if (diAtasRata) {
+            console.log(`  ${namaSiswa} => Nilai di atas rata-rata kelas`);
+        }
+
+        if (perluBimbingan) {
+            console.log(`  ${namaSiswa} => Disarankan ikut program bimbingan`);
+        }
+
+        console.log("===========================\n");
+
+        return { lulus, dapatBeasiswa, remedial, tepatKks, tidakAbsen };
+        }
+
+        // Contoh pemanggilan — berbagai skenario
+        cekKelulusan("Ani", 78);       // lulus, tidak dapat beasiswa
+        cekKelulusan("Budi", 91);      // lulus, dapat beasiswa
+        cekKelulusan("Cici", 60);      // tidak lulus, remedial
+        cekKelulusan("Dodi", 75);      // tepat di KKS
+
+    </script>
+</body>
+</html>
