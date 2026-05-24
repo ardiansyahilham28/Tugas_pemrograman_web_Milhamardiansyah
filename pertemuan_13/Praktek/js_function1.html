@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUNCTION1</title>
+</head>
+<body>
+    <script>
+        function Hello() {
+            console.log("Hello, World!");
+            alert("Hello, World!");
+            document.write("Hello, World!");
+        }
+        Hello();
+        
+
+        function tambah(a, b) {
+            return a + b;
+            let hasil = (a + b);
+            console.log(hasil);
+        }
+        tambah(5, 10);
+
+        //contoh function return value
+        function kali(x, y) {
+            let hasil = x * y;
+            console.log(hasil);
+            return hasil;
+        }
+        let hasilKali = kali(5, 10);
+        console.log("Hasil kali: " + hasilKali);
+    </script>
+</body>
+</html>

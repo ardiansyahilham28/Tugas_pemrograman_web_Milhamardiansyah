@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>JS Complex Examples</title>
+</head>
+<body>
+    <script>
+    // ============================================================
+    // 1. IF-ELSE / SWITCH CASE KOMPLEKS
+    //    Studi kasus: Sistem Penilaian Siswa
+    // ============================================================
+    
+        function evaluateStudent(name, score, attendance, role) {
+        
+        // --- Validasi input ---
+        if (typeof score !== 'number' || score < 0 || score > 100) {
+            return `❌ Skor tidak valid untuk ${name}`;
+        }
+        if (attendance < 50) {
+            return `⚠️ ${name} tidak memenuhi syarat kehadiran (min 50%)`;
+        }
+        
+        // --- If-else berantai: tentukan grade ---
+        let grade, status, bonus = 0;
+        
+        if (score >= 90) {
+            grade  = 'A';
+            status = 'Istimewa';
+            bonus  = 10;
+        } else if (score >= 80) {
+            grade  = 'B';
+            status = 'Baik';
+            bonus  = attendance >= 90 ? 5 : 0; // bonus jika hadir lebih dari 90%
+        } else if (score >= 70) {
+            grade  = 'C';
+            status = 'Cukup';
+        } else if (score >= 60) {
+            grade  = 'D';
+            status = 'Kurang';
+        } else {
+            grade  = 'E';
+            status = 'Gagal';
+        }
+        
+        // --- Switch case: hak akses berdasarkan role ---
+        let privilege;
+        switch (role) {
+            case 'ketua':
+            privilege = 'Akses penuh + laporan kelas';
+            break;
+            case 'pengurus':
+            privilege = 'Akses data teman sekelas';
+            break;
+            case 'anggota':
+            case 'biasa':           // fall-through: dua case, satu hasil
+            privilege = 'Akses data diri sendiri';
+            break;
+            default:
+            privilege = 'Role tidak dikenal';
+        }
+        
+        const finalScore = Math.min(score + bonus, 100);
+        
+        return (
+            `Nama      : ${name}\n` +
+            `Grade     : ${grade} (${status})\n` +
+            `Skor      : ${score} + bonus ${bonus} = ${finalScore}\n` +
+            `Kehadiran : ${attendance}%\n` +
+            `Role      : ${role} → ${privilege}`
+        );
+        }
+        
+        // --- Menjalankan contoh ---
+        console.log("=== CONTOH 1: IF-ELSE + SWITCH CASE ===\n");
+        console.log(evaluateStudent("Andi",   85, 92, "ketua"));
+        console.log("---");
+        console.log(evaluateStudent("Budi",   72, 80, "anggota"));
+        console.log("---");
+        console.log(evaluateStudent("Citra",  55, 45, "biasa"));     // kehadiran kurang
+        console.log("---");
+        console.log(evaluateStudent("Dinda",  95, 98, "pengurus"));
+        console.log("---");
+        console.log(evaluateStudent("Erik", "abc", 90, "biasa"));    // skor tidak valid
+    </script>
+</body>
+</html>

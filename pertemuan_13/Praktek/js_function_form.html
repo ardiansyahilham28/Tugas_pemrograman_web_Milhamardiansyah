@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><FORM></FORM></title>
+</head>
+<body>
+    <h1>FORM</h1>
+    <form id="myForm">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            alert('Nama: ' + name + '\nEmail: ' + email);
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,239 @@
+/* ─── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Variables ───────────────────────────────────────────── */
+:root {
+  --glass-bg:       rgba(255, 255, 255, 0.07);
+  --glass-border:   rgba(255, 255, 255, 0.16);
+  --glass-shine:    rgba(255, 255, 255, 0.18);
+  --glass-hover:    rgba(255, 255, 255, 0.12);
+  --glass-active:   rgba(255, 255, 255, 0.22);
+
+  --op-color:       #c084fc;
+  --fn-color:       rgba(196, 181, 253, 0.85);
+  --num-color:      rgba(255, 255, 255, 0.88);
+  --expr-color:     rgba(255, 255, 255, 0.38);
+
+  --eq-from:        #7c3aed;
+  --eq-to:          #a855f7;
+  --eq-hover-from:  #6d28d9;
+  --eq-hover-to:    #9333ea;
+
+  --divider:        rgba(255, 255, 255, 0.08);
+
+  --radius-calc:    28px;
+  --radius-btn:     0px;
+
+  --font-ui:        'DM Sans', sans-serif;
+  --font-num:       'DM Mono', monospace;
+}
+
+/* ─── Body / Scene ────────────────────────────────────────── */
+body {
+  font-family: var(--font-ui);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0524 0%, #1e0b4a 30%, #0b1e4a 65%, #08101f 100%);
+  overflow: hidden;
+}
+
+/* ─── Ambient Orbs ────────────────────────────────────────── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: drift 10s ease-in-out infinite alternate;
+}
+
+.orb--violet {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, #7c3aed, transparent 70%);
+  top: -80px;
+  left: -60px;
+  animation-duration: 11s;
+}
+
+.orb--blue {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, #2563eb, transparent 70%);
+  bottom: -60px;
+  right: -40px;
+  animation-duration: 13s;
+  animation-delay: -3s;
+}
+
+.orb--pink {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, #db2777, transparent 70%);
+  bottom: 80px;
+  left: 40px;
+  animation-duration: 9s;
+  animation-delay: -6s;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* ─── Calculator Shell ────────────────────────────────────── */
+.calc {
+  width: 320px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(32px) saturate(1.6);
+  -webkit-backdrop-filter: blur(32px) saturate(1.6);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-calc);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 0.5px rgba(255,255,255,0.06) inset,
+    0 2px 0 0 var(--glass-shine) inset,
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ─── Display ─────────────────────────────────────────────── */
+.display {
+  padding: 2rem 1.5rem 1.25rem;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 6px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.display__expr {
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--expr-color);
+  min-height: 18px;
+  word-break: break-all;
+  text-align: right;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s;
+}
+
+.display__result {
+  font-family: var(--font-num);
+  font-size: 42px;
+  font-weight: 400;
+  color: #fff;
+  word-break: break-all;
+  text-align: right;
+  line-height: 1.15;
+  letter-spacing: -2px;
+  transition: transform 0.1s ease;
+}
+
+/* ─── Button Grid ─────────────────────────────────────────── */
+.btns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ─── Base Button ─────────────────────────────────────────── */
+.btn {
+  all: unset;
+  cursor: pointer;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--num-color);
+  border-right: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+  user-select: none;
+  transition: background 0.15s ease, transform 0.08s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.18) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  background: var(--glass-hover);
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+.btn:active {
+  background: var(--glass-active);
+  transform: scale(0.96);
+}
+
+.btn:nth-child(4n) {
+  border-right: none;
+}
+
+.btn:nth-last-child(-n+4) {
+  border-bottom: none;
+}
+
+/* ─── Function Buttons (AC, +/−, %) ──────────────────────── */
+.btn--fn {
+  color: var(--fn-color);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Operator Buttons (÷ × − +) ─────────────────────────── */
+.btn--op {
+  color: var(--op-color);
+  font-size: 24px;
+  font-weight: 300;
+}
+
+/* ─── Zero Button (wide) ──────────────────────────────────── */
+.btn--zero {
+  grid-column: span 2;
+  justify-content: flex-start;
+  padding-left: 28px;
+}
+
+/* ─── Equals Button ───────────────────────────────────────── */
+.btn--eq {
+  background: linear-gradient(160deg, var(--eq-from), var(--eq-to));
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+  border-right: none;
+  border-bottom: none;
+}
+
+.btn--eq:hover {
+  background: linear-gradient(160deg, var(--eq-hover-from), var(--eq-hover-to));
+}
+
+.btn--eq:active {
+  transform: scale(0.95);
+}
+
+.btn--eq::after {
+  display: none;
+}

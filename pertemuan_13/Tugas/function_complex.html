@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUNCTION COMPLEX</title>
+</head>
+<body>
+    <script>
+        function evaluateStudent(name, score1, score2, role) {
+            // Validasi input
+            if (typeof name !== 'string' || typeof score1 !== 'number' || typeof score2 !== 'number' || typeof role !== 'string') {
+                return "Input tidak valid. Pastikan nama dan peran adalah string, serta skor adalah angka.";
+            }
+
+            // Hitung rata-rata skor
+            const averageScore = (score1 + score2) / 2;
+
+            // Tentukan predikat berdasarkan rata-rata skor
+            let grade;
+            if (averageScore >= 90) {
+                grade = "A";
+            } else if (averageScore >= 80) {
+                grade = "B";
+            } else if (averageScore >= 70) {
+                grade = "C";
+            } else if (averageScore >= 60) {
+                grade = "D";
+            } else {
+                grade = "E";
+            }
+
+            // Tentukan komentar berdasarkan peran
+            let comment;
+            switch (role.toLowerCase()) {
+                case "ketua":
+                    comment = "Luar biasa! Sebagai ketua, kamu menunjukkan kepemimpinan yang hebat.";
+                    break;
+                case "pengurus":
+                    comment = "Kerja bagus! Sebagai pengurus, kamu berkontribusi banyak untuk organisasi.";
+                    break;
+                case "anggota":
+                    comment = "Bagus! Sebagai anggota, kamu sudah melakukan yang terbaik.";
+                    break;
+                default:
+                    comment = "Peran tidak dikenali. Pastikan peran adalah ketua, pengurus, atau anggota.";
+            }
+
+            return `Nama: ${name}\nRata-rata Skor: ${averageScore}\nGrade: ${grade}\nKomentar: ${comment}`;
+            }
+
+            // Menjalankan contoh
+            document.write("=== CONTOH 1: IF-ELSE + SWITCH CASE ===\n");
+            console.log(evaluateStudent("Andi",   85, 92, "ketua"));
+            console.log("---");
+
+            console.log(evaluateStudent("Budi",   72, 80, "anggota"));
+            console.log("---");
+            console.log(evaluateStudent("Citra",  55, 45, "biasa"));     // peran tidak valid
+            console.log("---");
+
+            console.log(evaluateStudent("Dinda",  95, 98, "pengurus"));
+            console.log("---");
+            console.log(evaluateStudent("Erik", "abc", 90, "biasa"));    // skor tidak valid
+    </script>
+</body>
+</html>

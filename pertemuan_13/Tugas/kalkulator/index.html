@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glass Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient orbs -->
+  <div class="orb orb--violet"></div>
+  <div class="orb orb--blue"></div>
+  <div class="orb orb--pink"></div>
+
+  <main class="scene">
+    <div class="calc" role="application" aria-label="Kalkulator">
+
+      <!-- Display -->
+      <div class="display" aria-live="polite">
+        <span class="display__expr" id="expr"></span>
+        <span class="display__result" id="result">0</span>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btns" id="btns">
+        <button class="btn btn--fn" data-action="ac">AC</button>
+        <button class="btn btn--fn" data-action="sign">+/−</button>
+        <button class="btn btn--fn" data-action="percent">%</button>
+        <button class="btn btn--op" data-action="op" data-val="÷">÷</button>
+
+        <button class="btn" data-action="num" data-val="7">7</button>
+        <button class="btn" data-action="num" data-val="8">8</button>
+        <button class="btn" data-action="num" data-val="9">9</button>
+        <button class="btn btn--op" data-action="op" data-val="×">×</button>
+
+        <button class="btn" data-action="num" data-val="4">4</button>
+        <button class="btn" data-action="num" data-val="5">5</button>
+        <button class="btn" data-action="num" data-val="6">6</button>
+        <button class="btn btn--op" data-action="op" data-val="−">−</button>
+
+        <button class="btn" data-action="num" data-val="1">1</button>
+        <button class="btn" data-action="num" data-val="2">2</button>
+        <button class="btn" data-action="num" data-val="3">3</button>
+        <button class="btn btn--op" data-action="op" data-val="+">+</button>
+
+        <button class="btn btn--zero" data-action="num" data-val="0">0</button>
+        <button class="btn" data-action="dot">.</button>
+        <button class="btn btn--eq" data-action="eq">=</button>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

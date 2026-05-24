@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switch Case</title>
+</head>
+<body>
+    <h1>Switch Case</h1>
+    <p>Masukkan angka 1-7 untuk mengetahui nama hari:</p>
+    <input type="number" id="dayInput" min="1" max="7">
+    <button onclick="checkDay()">Cek Hari</button>
+    <p id="result"></p>
+
+    <script>
+        function checkDay() {
+            const dayInput = document.getElementById('dayInput').value;
+            let result;
+
+            switch (parseInt(dayInput)) {
+                case 1:
+                    result = 'Hari ke-1 adalah Senin';
+                    break;
+                case 2:
+                    result = 'Hari ke-2 adalah Selasa';
+                    break;
+                case 3:
+                    result = 'Hari ke-3 adalah Rabu';
+                    break;
+                case 4:
+                    result = 'Hari ke-4 adalah Kamis';
+                    break;
+                case 5:
+                    result = 'Hari ke-5 adalah Jumat';
+                    break;
+                case 6:
+                    result = 'Hari ke-6 adalah Sabtu';
+                    break;
+                case 7:
+                    result = 'Hari ke-7 adalah Minggu';
+                    break;
+                default:
+                    result = 'Input tidak valid. Masukkan angka antara 1 dan 7.';
+            }
+
+            document.getElementById('result').textContent = result;
+        }
+    </script>
+    
+</body>
+</html>
