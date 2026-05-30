@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Belajar Objek - Mahasiswa</title>
+</head>
+<body>
+
+    <h2>📋 Daftar Mahasiswa (Array of Objects)</h2>
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr><th>NIM</th><th>Nama</th><th>Jurusan</th><th>Fakultas</th><th>Aksi</th></tr>
+        </thead>
+        <tbody id="tabelMahasiswa"></tbody>
+    </table>
+
+    <h2>➕ Tambah Mahasiswa Baru</h2>
+    <form id="formMahasiswa">
+        NIM: <input type="text" id="nim" required><br><br>
+        Nama: <input type="text" id="nama" required><br><br>
+        Jurusan: <input type="text" id="jurusan" required><br><br>
+        Fakultas: <input type="text" id="fakultas" required><br><br>
+        <button type="submit">Tambah Objek</button>
+    </form>
+
+    <h3>📦 Representasi JSON (Array of Objects)</h3>
+    <pre id="jsonPreview" style="background:#f4f4f4; padding:10px;"></pre>
+
+    <script>
+        // Data awal: array berisi objek mahasiswa
+        let daftarMahasiswa = [
+            { nim: "20230001", nama: "Aulia Rahma", jurusan: "Sistem Informasi", fakultas: "Fakultas Teknologi Informasi" },
+            { nim: "20230002", nama: "Bima Putra", jurusan: "Teknik Informatika", fakultas: "Fakultas Ilmu Komputer" },
+            { nim: "20230003", nama: "Citra Dewi", jurusan: "Manajemen", fakultas: "Fakultas Ekonomi" }
+        ];
+
+        // Fungsi menampilkan tabel
+        function tampilkanTabel() {
+            let tbody = document.getElementById("tabelMahasiswa");
+            tbody.innerHTML = "";
+            for (let i = 0; i < daftarMahasiswa.length; i++) {
+                let m = daftarMahasiswa[i];
+                let baris = `<tr>
+                    <td>${m.nim}</td>
+                    <td>${m.nama}</td>
+                    <td>${m.jurusan}</td>
+                    <td>${m.fakultas}</td>
+                    <td><button onclick="hapusMahasiswa('${m.nim}')">Hapus</button></td>
+                </tr>`;
+                tbody.innerHTML += baris;
+            }
+            // tampilkan JSON
+            document.getElementById("jsonPreview").innerText = JSON.stringify(daftarMahasiswa, null, 2);
+        }
+
+        // Fungsi hapus berdasarkan NIM
+        window.hapusMahasiswa = function(nim) {
+            let index = daftarMahasiswa.findIndex(m => m.nim === nim);
+            if (index !== -1) {
+                daftarMahasiswa.splice(index, 1);
+                tampilkanTabel();
+                alert(`Objek dengan NIM ${nim} dihapus.`);
+            } else {
+                alert("Data tidak ditemukan.");
+            }
+        };
+
+        // Tambah mahasiswa (objek baru)
+        document.getElementById("formMahasiswa").addEventListener("submit", function(e) {
+            e.preventDefault();
+            let nim = document.getElementById("nim").value.trim();
+            let nama = document.getElementById("nama").value.trim();
+            let jurusan = document.getElementById("jurusan").value.trim();
+            let fakultas = document.getElementById("fakultas").value.trim();
+
+            if (!nim || !nama || !jurusan || !fakultas) {
+                alert("Semua field harus diisi!");
+                return;
+            }
+            // cek duplikat NIM
+            if (daftarMahasiswa.some(m => m.nim === nim)) {
+                alert("NIM sudah ada! Gunakan NIM lain.");
+                return;
+            }
+            // buat objek baru
+            let mahasiswaBaru = {
+                nim: nim,
+                nama: nama,
+                jurusan: jurusan,
+                fakultas: fakultas
+            };
+            daftarMahasiswa.push(mahasiswaBaru);
+            tampilkanTabel();
+            // reset form
+            document.getElementById("formMahasiswa").reset();
+            alert("Objek mahasiswa baru berhasil ditambahkan!");
+        });
+
+        // inisialisasi tampilan
+        tampilkanTabel();
+    </script>
+
+    <hr>
+    <footer>💡 Setiap data adalah objek dengan properti nim, nama, jurusan, fakultas. Pelajari bagaimana array of objects di-loop dan dimanipulasi.</footer>
+</body>
+</html>
+```

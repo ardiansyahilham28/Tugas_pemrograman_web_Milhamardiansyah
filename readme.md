@@ -73,88 +73,24 @@
 - [x] **2.** Contoh `function` yang lebih kompleks
 - [x] **3.** Kalkulator dengan HTML, CSS & JS
 
----
 
-### 🗂️ Struktur File
+## 📝 Tugas Pertemuan 14
 
-```
-231011450716_MuhamadIlhamArdiansyah/
-│
-├── 📄 index.html          # Kalkulator (HTML + CSS + JS)
-├── 🎨 style.css           # Styling kalkulator
-├── ⚙️  script.js           # Logic kalkulator
-│
-└── 📄 js-examples.html    # Contoh if-else, switch, function
-```
+### ✅ Task List
+### Array 
+- Number
+- string
+- Mix
 
----
+### Object
+- Object
+- Array Object
 
-### 🔍 Preview Tugas
-
-#### 1️⃣ If-Else / Switch Case Kompleks
-```js
-function evaluateStudent(name, score, attendance, role) {
-  if (score >= 90)      { grade = 'A'; status = 'Istimewa'; }
-  else if (score >= 80) { grade = 'B'; status = 'Baik'; }
-  else if (score >= 70) { grade = 'C'; status = 'Cukup'; }
-  // ...
-
-  switch (role) {
-    case 'ketua':    privilege = 'Akses penuh'; break;
-    case 'anggota':
-    case 'biasa':    privilege = 'Akses terbatas'; break; // fall-through
-    default:         privilege = 'Tidak dikenal';
-  }
-}
-```
-
-#### 2️⃣ Function Kompleks
-```js
-// Closure
-function createDiscount(persen) {
-  return (harga) => ({ hemat: harga * persen / 100 });
-}
-
-// Higher-Order Function
-function filterAndTransform(arr, filterFn, transformFn) {
-  return arr.filter(filterFn).map(transformFn);
-}
-
-// Rekursi
-function faktorial(n) {
-  if (n <= 1) return 1;
-  return n * faktorial(n - 1);
-}
-```
-
-#### 3️⃣ Kalkulator
-```
-┌──────────────────────┐
-│         0            │  ← Display hasil
-├──────┬──────┬────────┤
-│  AC  │ +/−  │   %  ÷ │
-│   7  │   8  │   9  × │
-│   4  │   5  │   6  − │
-│   1  │   2  │   3  + │
-│   0        │   .  = │
-└──────────────────────┘
-  Glassmorphism UI ✨
-```
-
----
-
-## 📦 Cara Menjalankan
-
-```bash
-# Clone repository
-git clone https://github.com/[username]/[repo-name].git
-
-# Buka file langsung di browser
-open index.html         # kalkulator
-open js-examples.html   # contoh JS (lihat output di Console → F12)
-```
-
----
+### TUGAS
+- Buat input NIm, Nama, Jurusan, Fakultas
+- Button Tambah, Button Update
+- edit dan Hpus si Setiap Record
+- data tersimpan ke Array Object + Local storage
 
 ## 📁 Pengumpulan
 

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Mahasiswa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f5f5f5;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      color: #222;
+    }
+
+    /* ── Form ── */
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      width: 80px;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 4px 8px;
+      font-size: 14px;
+      border: 1px solid #aaa;
+      border-radius: 3px;
+      width: 200px;
+    }
+
+    .btn-group {
+      margin: 16px 0 24px 0;
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      border: 1px solid #888;
+      border-radius: 3px;
+      background: #e8e8e8;
+    }
+
+    button:hover {
+      background: #d0d0d0;
+    }
+
+    /* ── Table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    thead tr {
+      background: #4a90d9;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 14px;
+      border: 1px solid #ccc;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #eaf3fb;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: #fff;
+    }
+
+    tbody tr:hover {
+      background: #d0e8f8;
+    }
+
+    .btn-edit {
+      background: #4a90d9;
+      color: #fff;
+      border: none;
+      margin-right: 4px;
+    }
+
+    .btn-edit:hover { background: #2f72b8; }
+
+    .btn-delete {
+      background: #e05555;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-delete:hover { background: #c03030; }
+
+    .empty-msg {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+      padding: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Data Mahasiswa</h2>
+
+  <!-- Form -->
+  <div class="form-group">
+    <label>NIM:</label>
+    <input type="text" id="nim" placeholder="Masukkan NIM" />
+  </div>
+
+  <div class="form-group">
+    <label>Nama:</label>
+    <input type="text" id="nama" placeholder="Masukkan Nama" />
+  </div>
+
+  <div class="form-group">
+    <label>Jurusan:</label>
+    <select id="jurusan">
+      <option value="">Pilih Jurusan</option>
+      <option value="Teknik Informatika">Teknik Informatika</option>
+      <option value="Teknik Elektro">Teknik Elektro</option>
+      <option value="Sistem Informasi">Sistem Informasi</option>
+      <option value="Manajemen Informatika">Manajemen Informatika</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Fakultas:</label>
+    <select id="fakultas">
+      <option value="">Pilih Fakultas</option>
+      <option value="Ilmu Komputer">Ilmu Komputer</option>
+      <option value="Teknik">Teknik</option>
+      <option value="Ekonomi">Ekonomi</option>
+      <option value="Hukum">Hukum</option>
+    </select>
+  </div>
+
+  <div class="btn-group">
+    <button onclick="tambahMahasiswa()">Tambah Mahasiswa</button>
+    <button onclick="updateMahasiswa()">Update Data Mahasiswa</button>
+  </div>
+
+  <!-- Tabel -->
+  <h2>Daftar Mahasiswa</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>NIM</th>
+        <th>Nama</th>
+        <th>Jurusan</th>
+        <th>Fakultas</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="tabel-body">
+    </tbody>
+  </table>
+
+  <script>
+    // ── State: Array of Objects ─────────────────────────────
+    let dataMahasiswa = [];
+    let editIndex = -1; // -1 = tidak sedang edit
+
+    // ── Load dari localStorage saat halaman dibuka ──────────
+    function loadFromStorage() {
+      const saved = localStorage.getItem('dataMahasiswa');
+      if (saved) {
+        dataMahasiswa = JSON.parse(saved);
+      }
+      renderTabel();
+    }
+
+    // ── Simpan ke localStorage ───────────────────────────────
+    function saveToStorage() {
+      localStorage.setItem('dataMahasiswa', JSON.stringify(dataMahasiswa));
+    }
+
+    // ── Ambil nilai form ─────────────────────────────────────
+    function getFormValues() {
+      return {
+        nim      : document.getElementById('nim').value.trim(),
+        nama     : document.getElementById('nama').value.trim(),
+        jurusan  : document.getElementById('jurusan').value,
+        fakultas : document.getElementById('fakultas').value,
+      };
+    }
+
+    // ── Reset form ───────────────────────────────────────────
+    function resetForm() {
+      document.getElementById('nim').value      = '';
+      document.getElementById('nama').value     = '';
+      document.getElementById('jurusan').value  = '';
+      document.getElementById('fakultas').value = '';
+      editIndex = -1;
+    }
+
+    // ── Tambah Mahasiswa ─────────────────────────────────────
+    function tambahMahasiswa() {
+      const mhs = getFormValues();
+
+      // Validasi
+      if (!mhs.nim || !mhs.nama || !mhs.jurusan || !mhs.fakultas) {
+        alert('Semua field harus diisi!');
+        return;
+      }
+
+      // Cek NIM duplikat
+      const duplikat = dataMahasiswa.find(m => m.nim === mhs.nim);
+      if (duplikat) {
+        alert('NIM sudah terdaftar!');
+        return;
+      }
+
+      // Tambah ke array
+      dataMahasiswa.push(mhs);
+
+      saveToStorage();
+      renderTabel();
+      resetForm();
+    }
+
+    // ── Edit: isi form dengan data baris ────────────────────
+    function editMahasiswa(index) {
+      const mhs = dataMahasiswa[index];
+      document.getElementById('nim').value      = mhs.nim;
+      document.getElementById('nama').value     = mhs.nama;
+      document.getElementById('jurusan').value  = mhs.jurusan;
+      document.getElementById('fakultas').value = mhs.fakultas;
+      editIndex = index;
+    }
+
+    // ── Update Data Mahasiswa ────────────────────────────────
+    function updateMahasiswa() {
+      if (editIndex === -1) {
+        alert('Pilih data yang ingin di-update dengan klik tombol Edit terlebih dahulu.');
+        return;
+      }
+
+      const mhs = getFormValues();
+
+      if (!mhs.nim || !mhs.nama || !mhs.jurusan || !mhs.fakultas) {
+        alert('Semua field harus diisi!');
+        return;
+      }
+
+      // Cek NIM duplikat (kecuali data sendiri)
+      const duplikat = dataMahasiswa.find((m, i) => m.nim === mhs.nim && i !== editIndex);
+      if (duplikat) {
+        alert('NIM sudah digunakan mahasiswa lain!');
+        return;
+      }
+
+      dataMahasiswa[editIndex] = mhs;
+
+      saveToStorage();
+      renderTabel();
+      resetForm();
+    }
+
+    // ── Hapus Mahasiswa ──────────────────────────────────────
+    function hapusMahasiswa(index) {
+      const konfirmasi = confirm(`Hapus data ${dataMahasiswa[index].nama}?`);
+      if (!konfirmasi) return;
+
+      dataMahasiswa.splice(index, 1);
+
+      saveToStorage();
+      renderTabel();
+      resetForm();
+    }
+
+    // ── Render tabel dari array ──────────────────────────────
+    function renderTabel() {
+      const tbody = document.getElementById('tabel-body');
+      tbody.innerHTML = '';
+
+      if (dataMahasiswa.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-msg">Belum ada data mahasiswa.</td></tr>';
+        return;
+      }
+
+      dataMahasiswa.forEach(function(mhs, index) {
+        const tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + mhs.nim + '</td>' +
+          '<td>' + mhs.nama.toUpperCase() + '</td>' +
+          '<td>' + mhs.jurusan + '</td>' +
+          '<td>' + mhs.fakultas + '</td>' +
+          '<td>' +
+            '<button class="btn-edit" onclick="editMahasiswa(' + index + ')">Edit</button>' +
+            '<button class="btn-delete" onclick="hapusMahasiswa(' + index + ')">Delete</button>' +
+          '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ── Jalankan saat halaman pertama kali dibuka ─────────────
+    loadFromStorage();
+  </script>
+
+</body>
+</html>

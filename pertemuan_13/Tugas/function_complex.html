@@ -3,65 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FUNCTION COMPLEX</title>
+    <title>FUNCTION KOMPLEX</title>
 </head>
 <body>
-    <script>
-        function evaluateStudent(name, score1, score2, role) {
-            // Validasi input
-            if (typeof name !== 'string' || typeof score1 !== 'number' || typeof score2 !== 'number' || typeof role !== 'string') {
-                return "Input tidak valid. Pastikan nama dan peran adalah string, serta skor adalah angka.";
+    <script>    
+            console.log("\n=== CONTOH 2A: CLOSURE ===\n");
+ 
+            // Closure: createDiscount menyimpan nilai 'persen'
+            // dan mengembalikan fungsi baru yang bisa dipakai kapan saja
+            function createDiscount(persen) {
+            return function(harga) {
+                const hemat = harga * (persen / 100);
+                const bayar = harga - hemat;
+                return { harga, hemat, bayar };
+            };
             }
-
-            // Hitung rata-rata skor
-            const averageScore = (score1 + score2) / 2;
-
-            // Tentukan predikat berdasarkan rata-rata skor
-            let grade;
-            if (averageScore >= 90) {
-                grade = "A";
-            } else if (averageScore >= 80) {
-                grade = "B";
-            } else if (averageScore >= 70) {
-                grade = "C";
-            } else if (averageScore >= 60) {
-                grade = "D";
-            } else {
-                grade = "E";
+            
+            const diskon20 = createDiscount(20);  // closure: persen = 20 tersimpan
+            const diskon50 = createDiscount(50);  // closure: persen = 50 tersimpan
+            
+            console.log("Diskon 20% dari Rp350.000 :", diskon20(350000));
+            console.log("Diskon 50% dari Rp350.000 :", diskon50(350000));
+            console.log("Diskon 20% dari Rp80.000  :", diskon20(80000));
+            
+            
+            console.log("\n=== CONTOH 2B: HIGHER-ORDER FUNCTION ===\n");
+            
+            // Higher-Order Function: menerima fungsi sebagai argumen
+            function filterAndTransform(arr, filterFn, transformFn) {
+            return arr
+                .filter(filterFn)      // fungsi pertama: penyaring
+                .map(transformFn);     // fungsi kedua: pengubah format
             }
-
-            // Tentukan komentar berdasarkan peran
-            let comment;
-            switch (role.toLowerCase()) {
-                case "ketua":
-                    comment = "Luar biasa! Sebagai ketua, kamu menunjukkan kepemimpinan yang hebat.";
-                    break;
-                case "pengurus":
-                    comment = "Kerja bagus! Sebagai pengurus, kamu berkontribusi banyak untuk organisasi.";
-                    break;
-                case "anggota":
-                    comment = "Bagus! Sebagai anggota, kamu sudah melakukan yang terbaik.";
-                    break;
-                default:
-                    comment = "Peran tidak dikenali. Pastikan peran adalah ketua, pengurus, atau anggota.";
+            
+            const produk = [
+            { nama: "Sepatu", harga: 350000 },
+            { nama: "Kaos",   harga: 80000  },
+            { nama: "Jaket",  harga: 520000 },
+            { nama: "Topi",   harga: 65000  },
+            ];
+            
+            // Filter produk harga > 100rb, lalu format jadi label teks
+            const produkMahal = filterAndTransform(
+            produk,
+            (p) => p.harga > 100000,                               // filterFn
+            (p) => `${p.nama}: Rp${p.harga.toLocaleString("id")}` // transformFn
+            );
+            
+            console.log("Produk dengan harga > Rp100.000:");
+            produkMahal.forEach((item) => console.log(" -", item));
+            
+            
+            console.log("\n=== CONTOH 2C: REKURSI ===\n");
+            
+            // Rekursi: fungsi memanggil dirinya sendiri
+            // Base case: n <= 1 → hentikan rekursi
+            function faktorial(n) {
+            if (n <= 1) return 1;          // base case
+            return n * faktorial(n - 1);   // recursive call
             }
-
-            return `Nama: ${name}\nRata-rata Skor: ${averageScore}\nGrade: ${grade}\nKomentar: ${comment}`;
+            
+            // Rekursi: hitung jumlah digit angka
+            function jumlahDigit(n) {
+            n = Math.abs(n);               // pastikan positif
+            if (n < 10) return n;          // base case: 1 digit
+            return (n % 10) + jumlahDigit(Math.floor(n / 10));
             }
-
-            // Menjalankan contoh
-            document.write("=== CONTOH 1: IF-ELSE + SWITCH CASE ===\n");
-            console.log(evaluateStudent("Andi",   85, 92, "ketua"));
+            
+            for (let i = 1; i <= 7; i++) {
+            console.log(`faktorial(${i}) = ${faktorial(i)}`);
+            }
+            
             console.log("---");
-
-            console.log(evaluateStudent("Budi",   72, 80, "anggota"));
-            console.log("---");
-            console.log(evaluateStudent("Citra",  55, 45, "biasa"));     // peran tidak valid
-            console.log("---");
-
-            console.log(evaluateStudent("Dinda",  95, 98, "pengurus"));
-            console.log("---");
-            console.log(evaluateStudent("Erik", "abc", 90, "biasa"));    // skor tidak valid
+            console.log(`jumlahDigit(1234)  = ${jumlahDigit(1234)}`);   // 1+2+3+4 = 10
+            console.log(`jumlahDigit(9876)  = ${jumlahDigit(9876)}`);   // 9+8+7+6 = 30
     </script>
+    
 </body>
 </html>

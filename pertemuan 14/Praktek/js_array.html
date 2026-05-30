@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>JavaScript Array</title>
+</head>
+<body>
+    <h1>JavaScript Array</h1>
+    <script>
+        // Create an array
+        let fruits = ["apple", "banana", "orange"];
+        console.log(fruits);
+
+        // Access array elements
+        console.log(fruits[0]); // Output: apple
+        console.log(fruits[1]); // Output: banana
+        console.log(fruits[2]); // Output: orange
+
+        // Modify array elements
+        fruits[1] = "grape";
+        console.log(fruits); // Output: ["apple", "grape", "orange"]
+
+        // Add elements to the end of the array
+        fruits.push("mango");
+        console.log(fruits); // Output: ["apple", "grape", "orange", "mango"]
+
+        // Remove the last element from the array
+        fruits.pop();
+        console.log(fruits); // Output: ["apple", "grape", "orange"]
+
+        // Add elements to the beginning of the array
+        fruits.unshift("kiwi");
+        console.log(fruits); // Output: ["kiwi", "apple", "grape", "orange"]
+
+        // Remove the first element from the array
+        fruits.shift();
+        console.log(fruits); // Output: ["apple", "grape", "orange"]
+    </script>
+</body>
+</html>
