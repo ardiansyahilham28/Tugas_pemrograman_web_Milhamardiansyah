@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Mahasiswa {
+            constructor(nim, nama, jurusan) {
+                this.nim = nim;
+                this.nama = nama;
+                this.jurusan = jurusan;
+            }
+
+            info() {
+                return `${this.nama} (${this.nim}) - ${this.jurusan}`;
+            }
+        }
+
+        let mhs1 = new Mahasiswa("20230001", "Aulia Rahma", "Sistem Informasi");
+        let mhs2 = new Mahasiswa("20230002", "Bima Putra", "Teknik Informatika");
+
+        console.log(mhs1.info());
+        console.log(mhs2.info());
+</body>
+</html>

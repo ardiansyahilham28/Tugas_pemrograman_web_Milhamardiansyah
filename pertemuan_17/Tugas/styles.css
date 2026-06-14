@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+}
+
+.game-wrapper {
+  width: 100%;
+  max-width: 480px;
+  padding: 1rem;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hud-item {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.hud-item span {
+  color: #4fc3f7;
+}
+
+.game-area {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background: linear-gradient(180deg, #0a0e27 0%, #1a1a3e 50%, #0d1b2a 100%);
+  border: 2px solid #4fc3f7;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+}
+
+.game-area::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 80px 120px, #fff, transparent),
+    radial-gradient(1px 1px at 150px 60px, #fff, transparent),
+    radial-gradient(1px 1px at 220px 180px, #fff, transparent),
+    radial-gradient(1px 1px at 300px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 350px 250px, #fff, transparent),
+    radial-gradient(1px 1px at 100px 400px, #fff, transparent),
+    radial-gradient(1px 1px at 250px 350px, #fff, transparent),
+    radial-gradient(1px 1px at 400px 500px, #fff, transparent);
+  background-size: 450px 600px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Player Ship */
+.player {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.player::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 40px solid #4fc3f7;
+  filter: drop-shadow(0 0 8px #4fc3f7);
+}
+
+.player::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #fff;
+}
+
+/* Enemy Ship */
+.enemy {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.enemy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-top: 35px solid #ff5252;
+  filter: drop-shadow(0 0 6px #ff5252);
+}
+
+.enemy::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #ffeb3b;
+  border-radius: 50%;
+}
+
+.enemy.fast::before {
+  border-top-color: #ff9800;
+  filter: drop-shadow(0 0 6px #ff9800);
+}
+
+/* Bullets */
+.bullet {
+  position: absolute;
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  z-index: 8;
+}
+
+.bullet.player-bullet {
+  background: linear-gradient(180deg, #fff 0%, #4fc3f7 100%);
+  box-shadow: 0 0 6px #4fc3f7;
+}
+
+.bullet.enemy-bullet {
+  background: linear-gradient(180deg, #ffeb3b 0%, #ff5252 100%);
+  box-shadow: 0 0 6px #ff5252;
+}
+
+/* Explosion effect */
+.explosion {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffeb3b 0%, #ff9800 40%, transparent 70%);
+  animation: explode 0.4s ease-out forwards;
+  pointer-events: none;
+  z-index: 15;
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Overlay (start / game over) */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 20;
+  text-align: center;
+  padding: 2rem;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #4fc3f7;
+  text-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+}
+
+.overlay p {
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+.controls {
+  list-style: none;
+  margin-bottom: 1.5rem;
+  color: #aaa;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.btn-start {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #4fc3f7, #0288d1);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-start:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+}
+
+.btn-start:active {
+  transform: scale(0.98);
+}

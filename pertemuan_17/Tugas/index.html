@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Shooter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <header class="hud">
+            <div class="hud-item">Skor: <span id="score">0</span></div>
+            <div class="hud-item">Nyawa: <span id="lives">3</span></div>
+            <div class="hud-item">Level: <span id="level">1</span></div>
+        </header>
+
+        <div id="gameArea" class="game-area">
+            <div id="overlay" class="overlay">
+                <h1>Space Shooter</h1>
+                <p>Tembak pesawat musuh di angkasa!</p>
+                <ul class="controls">
+                    <li>← → atau A D : Gerak</li>
+                    <li>Spasi : Tembak</li>
+                </ul>
+                <button id="startBtn" class="btn-start">Mulai Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
